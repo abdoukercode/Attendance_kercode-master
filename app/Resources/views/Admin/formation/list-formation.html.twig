@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block subtitle %}
+        <h2 class="page-header">Manage Classes</h2>
+    {% endblock %}
+
+
+    <div class="pull-right" style="margin-bottom: 10px; margin-top: 20px;">
+        <a href="{{ path('admin_formation_new') }}" class="btn btn-md btn-success pull-right">Add <span class="fa fa-plus-circle"></span></a>
+    </div>
+
+    <h3>Formation</h3>
+
+    <table class="table table-striped">
+        <tr>
+
+            <th><h4>Formation_id</h4></th>
+            <th><h4>Name</h4></th>
+            <th><h4>Description</h4></th>
+            <th><h4>Code</h4></th>
+
+
+
+
+
+            <th>&nbsp;</th>
+        </tr>
+        {% for formation in formations %}
+
+            <tr>
+
+                <td><h5>{{ formation.id }}</h5></td>
+                <td><h5>{{ formation.name}}</h5></td>
+                <td><h5>{{ formation.description }}</h5></td>
+                <td><h5>{{ formation.code }}</h5></td>
+
+
+                <td>
+                    <a href="{{ path('admin_formation_edit', {'id': formation.id}) }}" class="btn btn-sm btn-success"><span class="fa fa-pencil"></span></a>  <a href="{{ path('admin_formation_delete', {'id': formation.id}) }}" class="btn btn-sm btn-warning"><span class="fa fa-trash"></span></a>
+                </td>
+
+
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

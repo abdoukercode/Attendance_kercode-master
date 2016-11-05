@@ -1,0 +1,74 @@
+<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+
+
+<h3 style="text-align: center; text-decoration: underline;" xmlns="http://www.w3.org/1999/html">Class Attendance Report</h3>                                                                            <h4> Formation: {{ formation }}</h4>
+<h5 class="student-name" style="margin-bottom: 45px"> From: {{ debut|date('D d-M') }} </br>To: {{ fin|date('D d-M') }} </h5>
+
+
+
+<body>
+
+<title>{{ formation }}</title>
+<div class="container" >
+
+    <div class="row">
+
+        <div class="col-md-8 col-md-offset-2">
+
+
+            <table  id="table_id"  border='10' frame='border' cellPadding='5%'>
+
+
+                <thead>
+
+
+                <tr >
+
+                    <th >Dates</th>
+
+                    {% for range in ranges %}
+                        {% if range|date('D') in ['Mon','Tue', 'Wed','Thu','Fri'] %}
+                            <th class="thead">{{ range|date('D d-M') }}</th>
+                        {% endif %}
+
+                    {% endfor %}
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for student in students  %}
+                    <tr>
+
+                        <td style="margin-right: 25px">{{ student.firstName }} {{ student.lastName }}</td>
+                        {% for range in ranges %}
+                            {% if range|date('D') in ['Mon','Tue', 'Wed','Thu','Fri'] %}
+                                {% if range|date('D d-M') in Pointages %}
+                                    {#{{ dump(range|date('D d-M')) }}#}
+                                    <td style="background-color: limegreen"><input type="checkbox" value=" {{ range|date('D d-M') }} " checked ></td>
+                                {% else %}
+                                    <td><input type="checkbox" value=" {{ range|date('D d-M') }} " ></td>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+
+            </table>
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+</body>

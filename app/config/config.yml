@@ -1,0 +1,170 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+    app.path.user_image: /uploads/images/user
+
+
+framework:
+    #esi:             ~
+    translator:      ~
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    fragments:       ~
+    http_method_override: true
+    assets: ~
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes:
+          - 'bootstrap_3_horizontal_layout.html.twig'
+          # other form themes
+          - 'VichUploaderBundle:Form:fields.html.twig'
+
+
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #     path:     "%database_path%"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+    registration:
+            form:
+                type: AppBundle\Form\RegistrationType
+            confirmation:
+                enabled: true
+    resetting:
+            email:
+                from_email:
+                    address:        resetting@example.com
+                    sender_name:    Demo Resetting
+
+
+
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+            student_image:
+                uri_prefix:         /images/students
+                upload_destination: '%kernel.root_dir%/../web/images/students'
+                namer:              vich_uploader.namer_uniqid
+
+            student_qrcode:
+                uri_prefix:         /images/students
+                upload_destination: '%kernel.root_dir%/../web/images/students'
+                namer:              vich_uploader.namer_uniqid
+
+            user_image:
+                uri_prefix:   '%app.path.user_image%'
+                upload_destination: '%kernel.root_dir%/../web/uploads/images/user'
+
+
+                inject_on_load:     false
+                delete_on_update:   true
+                delete_on_remove:   true
+
+easy_admin:
+    site_name: '<strong>SayHello</strong>'
+    design:
+      brand_color: '#1ABC9C'
+      templates:
+        layout: 'EasyAdminBundle/views/layout.html.twig'
+
+    entities:
+         User:
+            class: AppBundle\Entity\User
+            list:
+              fields: ['username', 'firstName', 'lastName', 'email', 'enabled','lastLogin', 'locked']
+            form:
+                fields:
+                    - username
+                    - firstName
+                    - lastName
+                    - email
+                    - enabled
+                    - lastLogin
+                    - { property: 'imageFile', type: 'vich_image' }
+                    # if administrators are allowed to edit users' passwords and roles, add this:
+                    - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
+
+endroid_qr_code:
+    size: 100
+    padding: 10
+    extension: png
+    error_correction_level: high
+    foreground_color: { r: 0, g: 0, b: 0, a: 0 }
+    background_color: { r: 255, g: 255, b: 255, a: 0 }
+    label: "SayHello"
+    label_font_size: 10
+
+knp_snappy:
+    temporary_folder: '%kernel.cache_dir%/snappy'
+    pdf:
+        enabled:    true
+        # If you have wkhtmltopdf as an environment variable you don't need to provide the
+        # full path to the executable, use it in the same way as you use in the console
+        #binary:  "wkhtmltopdf"
+        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\""
+        options:    []
+    image:
+        enabled:    true
+        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\""
+        options:    []
+
+
+
+
+

@@ -1,0 +1,61 @@
+<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<title>{{ student.firstName }} {{ student.lastName }}</title>
+<h2 style="text-align:center; color: #1B96FE;font-weight: bolder; margin-bottom: 15px; font-style: italic; text-decoration: underline;">Report for Student:  {{ student.firstName }} {{ student.lastName }}</h2>
+<h4 style="font-weight: bolder"> Formation: {{ formation }}</h4>
+<h4 class="student-name" style="font-weight: bolder"> From: {{ debut}} </br>To: {{ fin}} </h4>
+
+<body>
+
+<div class="container" >
+
+    <div class="row">
+
+        <div class="col-md-8 col-md-offset-2">
+
+
+
+
+
+
+        <table  id="table table-bordered table-inverse"   style="margin-left:25%; width: 60%"  border='20' frame='border' cellPadding='5%'>
+
+    <thead class="thead-inverse" >
+
+
+    <tr  style="margin-bottom:35px !important;">
+        <th >Dates</th>
+        <th >{{ student.firstName }}'s Presences</th>
+
+
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for range in ranges %}
+
+        <tr style="margin-bottom: 15px">
+            {% if range|date('D') in ['Mon','Tue', 'Wed','Thu','Fri'] %}
+                <td class="thead">{{ range|date('D d-M') }}</td>
+                {% if range|date('D d-M') in Pointages %}
+                    <td style="background-color: limegreen"><input type="checkbox" value=" {{ range|date('D d-M') }} " checked ></td>
+                {% else %}
+                    <td><input type="checkbox" value=" {{ range|date('D d-M') }} " ></td>
+                {% endif %}
+
+            {% endif %}
+        </tr>
+    {% endfor %}
+
+    </tbody>
+
+</table>
+            </div>
+        </div>
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+</body>

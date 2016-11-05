@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block subtitle %}
+        <h2 class="page-header">List of Classes</h2>
+    {% endblock %}
+
+
+    <h3>Formations</h3>
+
+    <table class="table table-striped">
+        <tr>
+
+            <th><h4>Formation_id</h4></th>
+            <th><h4>Name</h4></th>
+            <th><h4>Description</h4></th>
+            <th><h4>Code</h4></th>
+
+
+
+
+
+
+        </tr>
+        {% for formation in formations %}
+
+            <tr>
+
+                <td><h5>{{ formation.id }}</h5></td>
+                <td><h5><a href="{{ path('formation-show', {'id': formation.id}) }}">{{ formation.name}}</a></h5></td>
+                <td><h5>{{ formation.description }}</h5></td>
+                <td><h5>{{ formation.code }}</h5></td>
+
+
+
+
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

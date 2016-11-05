@@ -1,0 +1,18 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ asset('css/fosuser/css/style.css') }}">
+{%  endblock %}
+
+{% block fos_user_content %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div class="box" style="padding:20px;">
+        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+        <a href="{{ path('fos_user_security_logout') }}">
+            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+        </a>
+        </div>
+    {% else %}
+
+    {% endif %}
+{% include "FOSUserBundle:Profile:show_content.html.twig" %}
+{% endblock fos_user_content %}

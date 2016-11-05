@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Create Presence for Student {{ student.firstName }}{% endblock %}
+
+{% block body %}
+<h1>Create Presence for</h1>
+<h2 class="student-name">   {{ student.firstName }} {{ student.lastName }}</h2>
+
+<div class="student-container">
+    <div class="student-photo">
+        <td><img src="{{ vich_uploader_asset(student, 'imageFile') }}" alt="{{ student.imageName }}" class = "pull-left   img-circle img-responsive" width="200" height="200"/>
+    </div>
+    <div class="student-details">
+        <dl class="student-details-list">
+            <dt>FirstName:</dt>
+            <dd>{{ student.firstName }}</dd>
+            <dt>LastName:</dt>
+            <dd>{{ student.lastName }}</dd>
+            <dt>Email:</dt>
+            <dd>{{ student.email}}</dd>
+            <dt>Formation:</dt>
+            <dd>{{ formation }}</dd>
+
+        </dl>
+
+    </div>
+</div>
+
+    <div class="pull-left" style="margin-top: 35px; margin-left: 25px">
+
+        {{ form_start(form) }}
+        {{ form_row(form.date) }}
+        {{ form_end(form) }}
+
+    </div>
+
+<img src="{{ qrcode_data_uri( message, { size:75, padding: 10 }) }}" class= "pull-right img-responsive" width="105" style="margin-top: 75px"  />
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $('.js-datepicker').datepicker({
+                    format: 'yyyy-mm-dd'
+                });
+            });
+        </script>
+    {% endblock %}
+
+
+{% endblock %}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}SayHello{% endblock %}</title>
+    <!-- Latest compiled and minified CSS -->
+    {% block stylesheets %}
+        <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css" rel="stylesheet" integrity="sha384-Xqcy5ttufkC3rBa8EdiAyA1VgOGrmel2Y+wxm4K3kI3fcjTWlDWrlnxyD6hOi3PF" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img class="logo-icon " src="{{ asset('images/sayHi.png') }}">
+            <a class="navbar-brand pull-right head-logo" href="{{ path('homepage') }}">SayHello</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right list-unstyled">
+                <li>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <div    style="padding:20px; font-size: 15px ">
+                                       {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
+                        <a href="{{ path('fos_user_security_logout') }}" style="color:White;">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                        </a>
+                        <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="{{ app.user.image }}" class = "pull-right   img-circle img-responsive"  width="40px" style="margin-left:15px"/>
+                        {% else %}
+                            <a href="{{ path('fos_user_security_login') }}" style="color:White;">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>{{ 'layout.login'|trans({}, 'FOSUserBundle') }}
+                            </a>
+
+                        {% endif %}
+                    </div>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+
+            <ul class="nav nav-sidebar">
+                <li><a  href="{{ path('homepage') }}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li><a href="{{ path('student-list') }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                         Students</a></li>
+                <li><a href="{{ path('formation-list') }}"><i class="fa fa-tasks" aria-hidden="true"></i>
+                        Classes</a></li>
+                <li><a href=""><i class="fa fa-list" aria-hidden="true"></i>
+                        Daily Check</a></li>
+                {% endif %}
+
+            </ul>
+            <br>
+            <hr>
+            <h4><i class="fa fa-bar-chart" aria-hidden="true"></i>
+                 Reports</h4>
+
+            <ul class="nav nav-sidebar">
+                {% if  is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('admin_report_new') }}"><i class="fa fa-user" aria-hidden="true"></i> Individual</a></li>
+                <li><a href="{{ path('admin_class-report_new') }}"><i class="fa fa-users" aria-hidden="true"></i> Class</a></li>
+                <li><a href="{{ path('admin_magic_new') }}"><i class="fa fa-magic" aria-hidden="true"></i> Magic Tool</a></li>
+                {% endif %}
+
+
+            </ul>
+            <hr>
+            <h4><i class="fa fa-building" aria-hidden="true"></i>AdminBoard</h4>
+            <ul class="nav nav-sidebar">
+                {% if  is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('admin') }}"><i class="fa fa-users" aria-hidden="true"></i>
+                        Manage Users</a></li>
+                <li><a href="{{ path('admin_student_list') }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                        Manage Students</a></li>
+                <li><a href="{{ path('admin_formation_list') }}"><i class="fa fa-tasks" aria-hidden="true"></i>
+                         Manage Classes</a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+                    <div class="col-sm-12">
+                        <div >
+                            {% for msg in app.session.flashBag.get('success') %}
+                                <div class="alert alert-success">
+                                    {{ msg }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div>
+                        {% block body %}
+
+
+                        {% endblock %}
+                        </div>
+
+                    </div>
+
+{#            <h1 class="page-header">Dashboard</h1>
+
+            <h2 class="sub-header">Section title</h2>#}
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% block javascripts %}
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+
+{% endblock %}
+</body>
+</html>

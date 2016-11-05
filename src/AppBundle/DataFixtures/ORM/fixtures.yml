@@ -1,0 +1,8 @@
+AppBundle\Entity\Presence:
+    presence_{1..250}:
+          student: <numberBetween(1, 10)>
+          pointage: <dateTimeBetween('-6 months', 'now')>
+
+
+
+

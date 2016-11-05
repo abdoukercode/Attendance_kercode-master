@@ -1,0 +1,23 @@
+{% extends 'Admin/formation/form_Layout.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
+{% endblock %}
+
+{% block subtitle %}
+    <h2 class="page-header">Create Formation</h2>
+{% endblock %}
+
+{% block javascripts %}
+   {{ parent() }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.js-datepicker').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+        });
+    </script>
+{% endblock %}

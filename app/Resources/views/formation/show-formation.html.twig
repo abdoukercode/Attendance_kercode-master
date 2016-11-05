@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block subtitle %}
+        <h2 class="page-header"> Formation: {{ formation.name }}</h2>
+    {% endblock %}
+
+
+
+
+    <h3>Students</h3>
+
+    <table class="table table-striped">
+        <tr>
+            <th>&nbsp;</th>
+            <th><h4>Student_id</h4></th>
+            <th><h4>FirstName</h4></th>
+            <th><h4>LastName</h4></th>
+            <th><h4>Email</h4></th>
+
+
+
+
+
+        </tr>
+        {% for student in students %}
+
+            <tr>
+                <td><a href="{{ path('student-show', {'student_id': student.studentId}) }}"><img src="{{ vich_uploader_asset(student, 'imageFile') }}" alt="{{ student.imageName }}" class = "pull-left   img-circle img-responsive"  width="60px"/></a>
+                    </td>
+                <td><h5>{{ student.studentId }}</h5></td>
+                <td><h5>{{ student.firstName }}</h5></td>
+                <td><h5>{{ student.lastName }}</h5></td>
+                <td><h5>{{ student.email }}</h5></td>
+
+
+
+
+
+
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

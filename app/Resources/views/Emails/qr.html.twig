@@ -1,0 +1,25 @@
+{#<img src="{{ qrcode_data_uri( message, { size:75, padding: 10 }) }}" class= "pull-right img-responsive" width="105" style="margin-top: 75px"  />#}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<div class="student-container">
+    <div class="student-photo">
+
+    </div>
+    <div class="student-details">
+        <dl class="student-details-list">
+            <dt>FirstName:</dt>
+            <dd>{{ student.firstName }}</dd>
+            <dt>LastName:</dt>
+            <dd>{{ student.lastName }}</dd>
+            <dt>Email:</dt>
+            <dd>{{ student.email}}</dd>
+            <dt>Formation:</dt>
+            <dd>{{ formation }}</dd>
+
+        </dl>
+
+    </div>
+</div>
+
+<img src="{{ qrcode_data_uri( message, { size:250, padding: 10 }) }}" class= "pull-left img-responsive" style="margin-top: 75px"  />

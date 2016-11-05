@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+{% block subtitle %}
+{% endblock %}
+
+    {{ form_start(form) }}
+
+    {% block headedit %}
+    {% if student is defined and student %}
+
+        <div class="col-sm-8 col-sm-offset-1 " >
+
+            <img src="{{ vich_uploader_asset(student, 'imageFile') }}" alt="{{ student.imageName }}" class = "pull-left   img-thumbnail img-responsive" height="150px" width="150px" style="margin-bottom: 5px"/>
+
+            <img src="{{ qrcode_data_uri( message) }}" class= "pull-right img-responsive" width="75" style="margin-top: 75px"  /></div>
+
+    {% endif %}
+    {% endblock %}
+    <div class="col-sm-8 col-sm-offset-1" style="margin-top:10px">
+    {{ form_row(form.firstName) }}
+    {{ form_row(form.lastName) }}
+    {{ form_row(form.email)}}
+        {{ form_row(form.formation) }}
+        {{ form_row(form.imageFile) }}
+    {#<button type="submit" class="btn btn-primary" formnovalidate>Save</button>#}
+    {{ form_end(form) }}
+    </div>
+
+   {# {% block footeredit %}
+        {% if student is defined and student %}
+         #}{#   <div>
+                <img src="{{ vich_uploader_asset(student, 'qrFile') }}" alt="{{ student.qrName }}" class= "pull-right img-responsive" width="100"/>
+            </div>
+        {% endif %}#}{#
+    {% endblock %}#}
+{% endblock %}
+
+

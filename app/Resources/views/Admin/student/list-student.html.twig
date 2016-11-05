@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block subtitle %}
+        <h2 class="page-header">Manage Students</h2>
+    {% endblock %}
+
+
+                <div class="pull-right" style="margin-bottom: 10px; margin-top: 20px;">
+                    <a href="{{ path('admin_student_new') }}" class="btn btn-md btn-success pull-right">Add <span class="fa fa-plus-circle"></span></a>
+                </div>
+
+                <h3>Students</h3>
+
+                <table class="table table-striped">
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th><h4>Student_id</h4></th>
+                        <th><h4>FirstName</h4></th>
+                        <th><h4>LastName</h4></th>
+                        <th><h4>Email</h4></th>
+
+
+
+
+
+                        <th>&nbsp;</th>
+                    </tr>
+                    {% for student in students %}
+
+                        <tr>
+                            <td><img src="{{ vich_uploader_asset(student, 'imageFile') }}" alt="{{ student.imageName }}" class = "pull-left   img-thumbnail img-responsive" height="60" width="60"/></td>
+                            <td><h5>{{ student.studentId }}</h5></td>
+                            <td><h5>{{ student.firstName }}</h5></td>
+                            <td><h5>{{ student.lastName }}</h5></td>
+                            <td><h5>{{ student.email }}</h5></td>
+
+
+                            <td>
+                                <a href="{{ path('admin_student_edit', {'student_id': student.studentId}) }}" class="btn btn-sm btn-success"><span class="fa fa-pencil"></span></a>  <a href="{{ path('admin_student_delete', {'student_id': student.studentId}) }}" class="btn btn-sm btn-warning"><span class="fa fa-trash"></span></a>
+                            </td>
+
+
+                        </tr>
+                    {% endfor %}
+                </table>
+
+{% endblock %}
