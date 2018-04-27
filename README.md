@@ -1,4 +1,6 @@
-.checkout
+Installation
 =========
 
-A Symfony project created on September 30, 2016, 9:29 am.
+Basic symfony Repo Installation rules apply here ...
+
+Any question please contact me @ contactme@abdou-webdev.com
